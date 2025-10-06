@@ -93,3 +93,5 @@ flowchart LR
   SSM --- EC2A
   SSM --- EC2B
 
+  SSM --- EC2B
+
