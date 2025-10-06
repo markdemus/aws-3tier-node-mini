@@ -41,3 +41,55 @@ terraform apply \
   ```bash
   cd infra/terraform
   terraform destroy
+
+
+flowchart LR
+  subgraph Internet
+    U[User]
+  end
+
+  U -->|HTTP :80| ALB[Application Load Balancer]
+
+  subgraph VPC["VPC (us-east-2)"]
+    direction LR
+
+    subgraph PublicSubnets["Public Subnets"]
+      ALB
+    end
+
+    subgraph PrivateSubnets["Private Subnets (App Tier)"]
+      ASG[(Auto Scaling Group)]
+      EC2A[EC2 Node.js App]
+      EC2B[EC2 Node.js App]
+      ASG --- EC2A
+      ASG --- EC2B
+    end
+
+    subgraph DBSubnets["DB Subnets (RDS)"]
+      RDS[(RDS MySQL)]
+    end
+  end
+
+  ALB -->|HTTP :3000 (Target Group)| EC2A
+  ALB -->|HTTP :3000 (Target Group)| EC2B
+
+  EC2A -->|MySQL :3306| RDS
+  EC2B -->|MySQL :3306| RDS
+
+  %% Security Groups
+  classDef sg fill:#eef,stroke:#88a,stroke-width:1px,color:#223,font-size:12px;
+  SG_ALB[[SG: ALB<br/>in: 80 from 0.0.0.0/0<br/>out: all]]:::sg
+  SG_EC2[[SG: EC2<br/>in: 3000 from ALB SG<br/>out: all]]:::sg
+  SG_RDS[[SG: RDS<br/>in: 3306 from EC2 SG]]:::sg
+
+  SG_ALB --- ALB
+  SG_EC2 --- EC2A
+  SG_EC2 --- EC2B
+  SG_RDS --- RDS
+
+  %% IAM / SSM (optional)
+  classDef opt fill:#f8fff2,stroke:#8bbf56,stroke-width:1px,color:#223,font-size:12px,stroke-dasharray: 4 2;
+  SSM[EC2 IAM Role: AmazonSSMManagedInstanceCore]:::opt
+  SSM --- EC2A
+  SSM --- EC2B
+
