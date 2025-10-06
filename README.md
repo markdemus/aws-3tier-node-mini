@@ -35,3 +35,9 @@ terraform apply \
   -var 'db_user=notesuser' \
   -var 'db_pass=***' \
   -var 'db_name=notesdb'
+
+## Cost & cleanup
+- This stack runs an ALB, 2× t3.micro, and RDS t3.micro. When you’re done with practice:  
+  ```bash
+  cd infra/terraform
+  terraform destroy
