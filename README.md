@@ -91,7 +91,10 @@ flowchart LR
   SG_RDS --- RDS
 
   %% IAM / SSM (optional)
-  classDef opt fill:#f8fff2,stroke:#8bbf56,stroke-width:1px,color:#223,font-size:12px,stroke-dasharray: 4 2;
+  classDef opt fill:
+  #f8fff2,stroke:
+  #8bbf56,stroke-width:1px,color:
+  #223,font-size:12px,stroke-dasharray: 4 2;
   SSM[EC2 IAM Role: AmazonSSMManagedInstanceCore]:::opt
   SSM --- EC2A
   SSM --- EC2B
