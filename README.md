@@ -98,5 +98,3 @@ flowchart LR
   SSM[EC2 IAM Role: AmazonSSMManagedInstanceCore]:::opt
   SSM --- EC2A
   SSM --- EC2B
-  SSM --- EC2B
-
