@@ -77,7 +77,10 @@ flowchart LR
   EC2B -->|MySQL :3306| RDS
 
   %% Security Groups
-  classDef sg fill:#eef,stroke:#88a,stroke-width:1px,color:#223,font-size:12px;
+  classDef sg fill:
+  #eef,stroke:
+  #88a,stroke-width:1px,color:
+  #223,font-size:12px;
   SG_ALB[[SG: ALB<br/>in: 80 from 0.0.0.0/0<br/>out: all]]:::sg
   SG_EC2[[SG: EC2<br/>in: 3000 from ALB SG<br/>out: all]]:::sg
   SG_RDS[[SG: RDS<br/>in: 3306 from EC2 SG]]:::sg
