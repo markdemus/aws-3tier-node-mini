@@ -37,7 +37,7 @@ terraform apply \
   -var 'db_name=notesdb'
 
 ## Cost & cleanup
-- This stack runs an ALB, 2× t3.micro, and RDS t3.micro. When you’re done with practice:  
+- This stack runs an ALB, 2× t3.micro, and RDS t3.micro:  
   ```bash
   cd infra/terraform
   terraform destroy
